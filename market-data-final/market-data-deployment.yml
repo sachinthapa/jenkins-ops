@@ -1,0 +1,85 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: market-data
+  namespace: example
+  labels:
+    app: market-data
+    tier: backend
+    track: stable
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+        app: market-data
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 50%
+      maxSurge: 50%
+  template:
+    metadata:
+      labels:
+        app: market-data
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: market-data
+          image: thapasachin/market-data:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 8000
+          # livenessProbe:
+          #   httpGet:
+          #     path: /ping
+          #     port: 8000
+          #   initialDelaySeconds: 10
+          #   timeoutSeconds: 15
+          # readinessProbe:
+          #   httpGet:
+          #     path: /ping
+          #     port: 8000
+          #   initialDelaySeconds: 10
+          #   timeoutSeconds: 15
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    namespace: example
+    labels:
+        app: market-data-service
+    name: market-data-service
+spec:
+    ports:
+        - name: market-data
+          port: 8000
+          targetPort: 8000
+          nodePort: 30623
+    selector:
+        app: market-data
+    type: LoadBalancer #NodePort
+
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#     name: frontend-ingress
+#     namespace: example
+# spec:
+#     rules:
+#         - host: frontend.example.local
+#           http:
+#             paths:
+#               - backend:
+#                   service:
+#                       name: frontend-service
+#                       port:
+#                         number: 80
+#                 pathType: Prefix
+#                 path: /
