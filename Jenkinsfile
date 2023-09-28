@@ -8,12 +8,10 @@ pipeline {
   agent any
 
   stages {
-
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/Bravinsimiyu/jenkins-kubernetes-deployment.git'
+        git 'https://github.com/sachinthapa/jenkins-ops'
       }
-    }
-
+        }
     }
 }
