@@ -12,13 +12,13 @@ pipeline {
             git 'https://github.com/sachinthapa/jenkins-ops'
           }
         }
-        // stage('Build image') {
-        //     steps{
-        //         script {
-        //             dockerImage = docker.build dockerimagename
-        //         }
-        //     }
-        // }
+        stage('Build image') {
+            steps{
+                script {
+                    dockerImage = docker.build dockerimagename
+                }
+            }
+        }
         //
         // stage('Pushing Image') {
         //     environment {
