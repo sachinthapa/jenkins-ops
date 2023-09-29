@@ -57,7 +57,7 @@ withPod {
     // def tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     def service = "market-data:${tag}"
 
-    checkout scm
+    // checkout scm
 
     container('docker') {
       stage('Build') {
