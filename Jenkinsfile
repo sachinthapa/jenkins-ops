@@ -12,10 +12,12 @@ pipeline {
             git 'https://github.com/sachinthapa/jenkins-ops'
           }
         }
-        stage('Build image') {
-            steps{
-                script {
-                    dockerImage = docker.build dockerimagename
+
+        // def service = "market-data:${tag}"
+        container('docker') { 
+            stage('Build image') {
+                steps{
+                    sh('docker build -t thapasachin/market-data:trash .')
                 }
             }
         }
