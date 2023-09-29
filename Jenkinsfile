@@ -59,10 +59,10 @@ withPod {
 
     // checkout scm
 
-    container('docker') {
-      stage('Build') {
-        sh("docker build -t ${service} .")
-      }
-    }
+    // container('docker') {
+    //   stage('Build') {
+    //     sh("docker build -t ${service} .")
+    //   }
+    // }
   }
 }
