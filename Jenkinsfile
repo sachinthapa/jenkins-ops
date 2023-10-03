@@ -39,7 +39,7 @@
 // }
 
 
-}
+// }
 
 podTemplate {
     node(POD_LABEL) {
