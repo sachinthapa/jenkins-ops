@@ -2,7 +2,6 @@ pipeline {
     agent any
     tools {dockerTool  "myDocker" } 
     stages {
-
         stage('Checkout Source') {
             steps {
                 git 'https://github.com/Bravinsimiyu/jenkins-kubernetes-deployment.git'
@@ -11,12 +10,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker build -t market-data:v3'
+                sh 'docker build -t market-data:v3 .'
             }
         }
-
-
-
     }
 }
 
