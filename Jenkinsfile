@@ -15,15 +15,13 @@ pipeline {
         }
 
 
-      stage('Docker node test') {
-          agent {
-            docker {
-              image 'thapasachin/market-data'
-              args '--name docker-node' // list any args
+        stage('Docker node test') {
+            steps {
+                sh 'docker -v'
             }
-      }
+        }
     }
-
+}
         // def service = "market-data:${tag}"
 
 
@@ -41,9 +39,6 @@ pipeline {
         //         }
         //     }
         // }
-    }
-
-}
 
 
 // }
