@@ -7,10 +7,10 @@ pipeline {
                 docker{
                 }
             }
-            steps {
-                sh("docker -v")
-                // sh 'docker-v'
-            }
+            // steps {
+            //     sh("docker -v")
+            //     // sh 'docker-v'
+            // }
         }
     }
 }
