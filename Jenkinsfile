@@ -1,51 +1,23 @@
 pipeline {
-    environment {
-        dockerimagename = "thapasachin/market-data"
-        dockerImage = ""
-    }
-
     agent any
-
     stages {
-
-        stage('Checkout Source') {
-          steps {
-            git 'https://github.com/sachinthapa/jenkins-ops'
-          }
-        }
-
-
-        stage('Docker node test') {
-             agent {
-                docker-agent{
-                    steps {
-                        sh 'docker -v'
-                    }
+        stage('Build') {
+            agent {
+                docker-agent {
+                    image 'gradle:8.2.0-jdk17-alpine'
+                    // Run the container on the node specified at the
+                    // top-level of the Pipeline, in the same workspace,
+                    // rather than on a new node entirely:
+                    reuseNode true
                 }
+            }
+            steps {
+                sh 'gradle --version'
             }
         }
     }
 }
-        // def service = "market-data:${tag}"
 
-
-
-        //
-        // stage('Pushing Image') {
-        //     environment {
-        //         registryCredential = 'docker-credentials'
-        //         }
-        //     steps{
-        //         script {
-        //             docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-        //                 dockerImage.push("v3")
-        //             }
-        //         }
-        //     }
-        // }
-
-
-// }
 
 // podTemplate(containers: [
 //     containerTemplate(
