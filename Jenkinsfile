@@ -3,14 +3,14 @@ pipeline {
     tools {dockerTool  "myDocker" } 
     stages {
         stage('Build') {
-            agent {
-                docker{
-                }
-            }
-            // steps {
-            //     sh("docker -v")
-            //     // sh 'docker-v'
+            // agent {
+            //     docker{
+            //     }
             // }
+            steps {
+            //     sh("docker -v")
+                sh 'docker -v'
+            }
         }
     }
 }
