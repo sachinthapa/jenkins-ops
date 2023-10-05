@@ -17,7 +17,7 @@ pipeline {
         // container('docker') { 
             stage('Build image') {
                 steps{
-                script { dockerImage = docker.build dockerimagename }
+                    sh('docker build -t thapasachin/market-data:trash .')
                 }
             }
         // }
