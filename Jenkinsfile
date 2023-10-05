@@ -24,6 +24,7 @@ pipeline {
                 }
             }
         }
+    }
 }
         // def service = "market-data:${tag}"
 
