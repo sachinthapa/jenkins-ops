@@ -16,11 +16,14 @@ pipeline {
 
 
         stage('Docker node test') {
-            steps {
-                sh 'docker -v'
+             agent {
+                docker-agent{
+                    steps {
+                        sh 'docker -v'
+                    }
+                }
             }
         }
-    }
 }
         // def service = "market-data:${tag}"
 
