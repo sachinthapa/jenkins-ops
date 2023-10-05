@@ -2,12 +2,9 @@ pipeline {
     environment {
         dockerimagename = "thapasachin/market-data"
         dockerImage = ""
-        def dockerHome = tool 'myDocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
     }
 
     agent any
-
 
     stages {
 
@@ -17,14 +14,20 @@ pipeline {
           }
         }
 
-        // def service = "market-data:${tag}"
-        // container('docker') { 
-            stage('Build image') {
-                steps{
-                    sh('docker build -t thapasachin/market-data:trash .')
-                }
+
+      stage('Docker node test') {
+          agent {
+            docker {
+              image 'thapasachin/market-data'
+              args '--name docker-node' // list any args
             }
-        // }
+      }
+    }
+
+        // def service = "market-data:${tag}"
+
+
+
         //
         // stage('Pushing Image') {
         //     environment {
