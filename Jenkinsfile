@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools {dockerTool  "myDocker" } 
+    // tools {dockerTool  "myDocker" } 
     environment{
         DOCKERHUB_CREDENTIALS = credentials('docker-credentials')
         service = "market-data"
