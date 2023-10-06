@@ -1,6 +1,11 @@
 pipeline {
     agent any
     tools {dockerTool  "myDocker" } 
+    environment{
+        DOCKERHUB_CREDENTIALS = credentials('docker-credentials')
+        service = "market-data"
+        tagToDeploy = "v3"
+    }
     stages {
         stage('Checkout Source') {
             steps {
@@ -12,6 +17,13 @@ pipeline {
             steps {
                 sh 'docker build -t market-data:v3 market-data-final/.'
             }
+        }
+
+        stage('Publish') {
+             withDockerRegistry(registry: [credentialsId:'docker-credentials']) {
+                 sh "docker tag ${service} ${tagToDeploy}"
+                 sh "docker push ${tagToDeploy}"
+             }
         }
     }
 }
