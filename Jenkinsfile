@@ -19,13 +19,23 @@ pipeline {
             }
         }
 
+        stage('login') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS | docker login -u $DOCKERHUB_CREDENTIALS --password-stdin'
+            }
+        }
+
         stage('Publish') {
             steps{
-                 withDockerRegistry(registry: [credentialsId:'docker-credentials']) {
-                     sh "docker tag ${service} ${tagToDeploy}"
-                     sh "docker push ${tagToDeploy}"
-                 }
+                 sh "docker tag ${service} ${tagToDeploy}"
+                 sh "docker push ${tagToDeploy}"
              }
+        }
+    }
+
+    post{
+        always{
+            sh 'docker logout'
         }
     }
 }
