@@ -20,9 +20,11 @@ pipeline {
         }
 
         stage('Publish') {
-             withDockerRegistry(registry: [credentialsId:'docker-credentials']) {
-                 sh "docker tag ${service} ${tagToDeploy}"
-                 sh "docker push ${tagToDeploy}"
+            steps{
+                 withDockerRegistry(registry: [credentialsId:'docker-credentials']) {
+                     sh "docker tag ${service} ${tagToDeploy}"
+                     sh "docker push ${tagToDeploy}"
+                 }
              }
         }
     }
