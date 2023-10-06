@@ -4,7 +4,7 @@ pipeline {
     environment{
         DOCKERHUB_CREDENTIALS = credentials('docker-credentials')
         service = "market-data"
-        tagToDeploy = "v3"
+        tagToDeploy = "thapasachin/market-data"
     }
     stages {
         stage('Checkout Source') {
@@ -16,7 +16,6 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'docker build -t market-data market-data-final/.'
-                sh 'docker -v'
             }
         }
 
