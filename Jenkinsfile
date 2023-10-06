@@ -34,7 +34,7 @@ pipeline {
 
         stage('Deploy') {
             steps{
-                 sh "sed -i.bak 's#BUILD_TAG#${tagToDeploy}#' deploy/staging/market-data-deployment.yml"
+                 sh "sed -i.bak 's#BUILD_TAG#${tagToDeploy}#' deploy/staging/*.yml"
                  sh "kubectl --namespace=staging apply -f deploy/staging/"
              }
         }
