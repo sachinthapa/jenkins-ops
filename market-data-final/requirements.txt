@@ -1,4 +1,4 @@
-flask
-gunicorn
-nose
+#flask
+#gunicorn
+#nose
 gevent
