@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker build -t market-data:v3 market-data-final/.'
+                sh 'docker build -t market-data market-data-final/.'
             }
         }
 
