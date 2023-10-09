@@ -10,7 +10,22 @@ RUN add-apt-repository \
 RUN apt-get update  -qq \
     && apt-get -y install docker-ce
 RUN usermod -aG docker jenkins
-
-# apt install -y kubectl needed for kubectl
+RUN curl -LO https://dl.k8s.io/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl; chmod u+x ./kubectl; mv ./kubectl /usr/local/bin/kubectl
 
 # docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home custom-jenkins-docker
+#
+#
+# pipeline {
+#   agent any
+#   stages {
+#     stage('Apply Kubernetes files') {
+#       steps {
+#         withKubeConfig([credentialsId: 'kube-secret', serverUrl: '192.168.1.67:6443']) {
+#           sh  'curl -LO https://dl.k8s.io/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
+#         //   sh 'mv ./kubectl /usr/local/bin/kubectl'
+#           //sh 'curl -LO https://dl.k8s.io/release/v1.28.2/bin/linux/amd64/kubectl'
+#           sh 'chmod u+x ./kubectl'
+#           sh './kubectl version'
+#         }
+#       }
+#     }
