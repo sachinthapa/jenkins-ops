@@ -6,7 +6,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: sa-role
+  name: jenkins
 subjects:
 - kind: ServiceAccount
-  name: sa
+  name: jenkins

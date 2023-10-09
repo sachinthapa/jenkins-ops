@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: market-data
-  namespace: example
+  namespace: staging
   labels:
     app: market-data
     tier: backend

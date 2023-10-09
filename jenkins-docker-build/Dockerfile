@@ -11,5 +11,6 @@ RUN apt-get update  -qq \
     && apt-get -y install docker-ce
 RUN usermod -aG docker jenkins
 
+# apt install -y kubectl needed for kubectl
 
 # docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home custom-jenkins-docker
