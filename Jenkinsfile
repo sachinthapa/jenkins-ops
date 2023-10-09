@@ -38,7 +38,7 @@ pipeline {
                     // sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
                     //  sh 'chmod u+x ./kubectl'
                      // sh "sed -i.bak 's#BUILD_TAG#${tagToDeploy}#' deploy/staging/*.yml"
-                     sh "./kubectl --namespace=staging apply -f deploy/staging/"
+                     sh "./kubectl --namespace=staging apply -f deploy/staging/ --client"
                  }
              }
         }
