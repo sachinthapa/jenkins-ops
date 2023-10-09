@@ -10,7 +10,7 @@ RUN add-apt-repository \
 RUN apt-get update  -qq \
     && apt-get -y install docker-ce
 RUN usermod -aG docker jenkins
-RUN curl -LO https://dl.k8s.io/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl; chmod u+x ./kubectl; mv ./kubectl /usr/local/bin/kubectl
+RUN curl -LO https://dl.k8s.io/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl; chmod +x ./kubectl;mkdir -p ~/.local/bin; mv ./kubectl ~/.local/bin
 
 # docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home custom-jenkins-docker
 #
