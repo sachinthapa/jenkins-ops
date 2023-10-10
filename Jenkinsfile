@@ -3,34 +3,36 @@ pipeline {
     // tools {dockerTool  "myDocker" } 
     environment{
         DOCKERHUB_CREDENTIALS = credentials('docker-credentials')
-        service = "market-data"
+        def tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+        def service = "market-data:${tag}"
         tagToDeploy = "thapasachin/market-data"
     }
     stages {
-        // stage('Checkout Source') {
-        //     steps {
-        //         git 'https://github.com/Bravinsimiyu/jenkins-kubernetes-deployment.git'
-        //     }
-        // }
-        //
-        // stage('Build') {
-        //     steps {
-        //         sh 'docker build -t market-data market-data-final/.'
-        //     }
-        // }
-        //
-        // stage('login') {
-        //     steps {
-        //         sh 'echo $DOCKERHUB_CREDENTIALS_PSW| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        //     }
-        // }
-        //
-        // stage('Publish') {
-        //     steps{
-        //          sh "docker tag ${service} ${tagToDeploy}"
-        //          sh "docker push ${tagToDeploy}"
-        //      }
-        // }
+        stage('Checkout Source') {
+            steps {
+                git 'https://github.com/Bravinsimiyu/jenkins-kubernetes-deployment.git'
+                sh 'echo Service Name: ${service}'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'docker build -t ${service} market-data-final/.'
+            }
+        }
+
+        stage('login') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+
+        stage('Publish') {
+            steps{
+                 sh "docker tag ${service} ${tagToDeploy}"
+                 sh "docker push ${tagToDeploy}"
+             }
+        }
 
         stage('Deploy') {
             steps{
