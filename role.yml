@@ -5,7 +5,7 @@ metadata:
   namespace: sa-space
 rules:
 - apiGroups: [""]
-  resources: ["pods"]
+  resources: ["pods","namespaces","deployments"]
   verbs: ["create","delete","get","list","patch","update","watch"]
 - apiGroups: [""]
   resources: ["pods/exec"]
