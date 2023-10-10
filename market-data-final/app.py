@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/ping', methods=['GET'])
 def ping():
-    return "V1" + socket.gethostname()
+    return "V2" + socket.gethostname()
 
 
 if __name__ == '__main__':
