@@ -13,24 +13,24 @@ pipeline {
             }
         }
 
-        // stage('Build') {
-        //     steps {
-        //         sh 'docker build -t market-data market-data-final/.'
-        //     }
-        // }
-        //
-        // stage('login') {
-        //     steps {
-        //         sh 'echo $DOCKERHUB_CREDENTIALS_PSW| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        //     }
-        // }
-        //
-        // stage('Publish') {
-        //     steps{
-        //          sh "docker tag ${service} ${tagToDeploy}"
-        //          sh "docker push ${tagToDeploy}"
-        //      }
-        // }
+        stage('Build') {
+            steps {
+                sh 'docker build -t market-data market-data-final/.'
+            }
+        }
+
+        stage('login') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+
+        stage('Publish') {
+            steps{
+                 sh "docker tag ${service} ${tagToDeploy}"
+                 sh "docker push ${tagToDeploy}"
+             }
+        }
 
         stage('Deploy') {
             steps{
