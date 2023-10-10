@@ -6,11 +6,12 @@ pipeline {
         def tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
         def service = "market-data:${tag}"
         tagToDeploy = "thapasachin/${service}"
+        tagToDeploy = "thapasachin/${service}-canary"
     }
     stages {
         stage('Checkout Source') {
             steps {
-                git 'https://github.com/Bravinsimiyu/jenkins-kubernetes-deployment.git'
+                git 'https://github.com/sachinthapa/jenkins-ops.git'
                 sh 'echo Service Name: ${service}'
             }
         }
@@ -34,16 +35,16 @@ pipeline {
              }
         }
 
-        stage('Deploy Staging') {
-            steps{
-                withKubeConfig([credentialsId: 'kube-secret', serverUrl: 'https://192.168.1.67:6443']) {
-                    // sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
-                    //  sh 'chmod u+x ./kubectl'
-                     sh "sed -i.bak 's#BUILD_TAG#${tagToDeploy}#' deploy/staging/*.yml"
-                     sh "./kubectl apply -f deploy/staging/ -n sa-space"
-                 }
-             }
-        }
+        // stage('Deploy Staging') {
+        //     steps{
+        //         withKubeConfig([credentialsId: 'kube-secret', serverUrl: 'https://192.168.1.67:6443']) {
+        //             // sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
+        //             //  sh 'chmod u+x ./kubectl'
+        //              sh "sed -i.bak 's#BUILD_TAG#${tagToDeploy}#' deploy/staging/*.yml"
+        //              sh "./kubectl apply -f deploy/staging/ -n sa-space"
+        //          }
+        //      }
+        // }
 
         stage('Deploy Canary') {
             steps{
