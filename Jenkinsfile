@@ -5,8 +5,8 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('docker-credentials')
         def tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
         def service = "market-data:${tag}"
-        tagToDeploy = "thapasachin/${service}"
-        tagToDeploy = "thapasachin/${service}-canary"
+        //def tagToDeploy = "thapasachin/${service}"
+        def tagToDeploy = "thapasachin/${service}-canary"
     }
     stages {
         stage('Checkout Source') {
