@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: market-data
-  namespace: sa-space
+  namespace: staging
   labels:
     app: market-data
     tier: backend
@@ -51,7 +51,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-    namespace: sa-space
+    namespace: staging
     labels:
         app: market-data-service
     name: market-data-service
