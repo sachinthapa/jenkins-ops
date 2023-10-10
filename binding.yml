@@ -10,5 +10,5 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: jenkins
-  namespace: sa-space
-  apiGroup: ""
+  # namespace: sa-space
+  # apiGroup: ""
